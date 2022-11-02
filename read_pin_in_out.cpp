@@ -168,12 +168,12 @@ void read_pin_in_out(void)
 	if ((PINC & (1 << 1)) > 0)
 	{
 		count_PC1-- ;
-		if (count_PC1 <-5) {count_PC1 =-5; input_IN_main_plata = false ; } // !!!!!!!!!1  датчик уровня ГЕРКОН-вверх ногами , поэтому
+		if (count_PC1 <-5) {count_PC1 =-5; input_IN_main_plata = true ; } 
 	}
 	else
 	{
 		count_PC1++ ;
-		if (count_PC1 > 5) {count_PC1 = 5; input_IN_main_plata = true ; }
+		if (count_PC1 > 5) {count_PC1 = 5; input_IN_main_plata = false ; }
 	}
 
 	// ===============	input_button_US;		// pin18 => PB4 => нажата кнопка ==0, отпущена ==1 (подвес +5)

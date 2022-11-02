@@ -1375,10 +1375,11 @@ int main(void)
      a52:	88 b1       	in	r24, 0x08	; 8
      a54:	87 7f       	andi	r24, 0xF7	; 247
      a56:	88 b9       	out	0x08, r24	; 8
-		DDRC |=(1<<5);		//	PC5 =>	pin28 => status_pin_ten	=>		LED-HEAT =>		Выход ТEN-triac	==>	info_ten	==>	usRegInputBuf[3].0 ==>	LW102i0_info_onoff_ten				 				 PC4 =>	pin27 => status_pin_nagrev    =>	LED-SONIC =>	Выход  S  реле US ==>	cmd_US ==>		usRegInputBuf[2].7 ==>	LW101i7_infa_onoff_US
+		DDRC |=(1<<5);		//	PC5 =>	pin28 => status_pin_ten	=>		LED-HEAT =>		Выход ТEN-triac	==>	info_ten	==>	usRegInputBuf[3].0 ==>	LW102i0_info_onoff_ten	
      a58:	87 b1       	in	r24, 0x07	; 7
      a5a:	80 62       	ori	r24, 0x20	; 32
      a5c:	87 b9       	out	0x07, r24	; 7
+							//					 status_pin_ten2=>		LED-HEAT =>										==>	usRegInputBuf[3].1 ==>	LW102i1_info_onoff_ten2
 		DDRC |=(1<<4);		//	PC4 =>	pin27 => status_pin_us	=>		LED-SONIC =>	Выход OK TIMER ==>	info_us		==>	usRegInputBuf[3].2 ==>	LW102i2_infa_us
      a5e:	87 b1       	in	r24, 0x07	; 7
      a60:	80 61       	ori	r24, 0x10	; 16
@@ -1391,18 +1392,19 @@ int main(void)
      a6a:	8a b1       	in	r24, 0x0a	; 10
      a6c:	84 60       	ori	r24, 0x04	; 4
      a6e:	8a b9       	out	0x0a, r24	; 10
-		DDRC |=(1<<2);		//	PC2 =>	pin25 => status_pin_vent_out3 =>плата_расш =>	Выход_ OUT3 ==>		info_out3	==>	usRegInputBuf[3].5 ==>	LW102i5_infa_vent_onoff_out3
-     a70:	87 b1       	in	r24, 0x07	; 7
+		DDRB |=(1<<2);		//	PB2 =>	pin16 => status_pin_out4 =>		плата_расш =>	Выход_ OUT4 ==>		info_out4	==>	usRegInputBuf[3].5 ==>	LW102i5_infa_onoff_out4
+     a70:	84 b1       	in	r24, 0x04	; 4
      a72:	84 60       	ori	r24, 0x04	; 4
-     a74:	87 b9       	out	0x07, r24	; 7
-		DDRB |=(1<<2);		//	PB2 =>	pin16 => status_pin_out4 =>		плата_расш =>	Выход_ OUT4 ==>		info_out4	==>	usRegInputBuf[3].6 ==>	LW102i6_infa_onoff_out4
+     a74:	84 b9       	out	0x04, r24	; 4
+		DDRB |=(1<<1);		//	PB1 =>	pin15 => status_pin_fs_out5 =>	плата_расш =>	Выход_ OUT5 ==>		info_out5	==>	usRegInputBuf[3].6 ==>	LW102i6_infa_fs_onoff_out5
      a76:	84 b1       	in	r24, 0x04	; 4
-     a78:	84 60       	ori	r24, 0x04	; 4
+     a78:	82 60       	ori	r24, 0x02	; 2
      a7a:	84 b9       	out	0x04, r24	; 4
-		DDRB |=(1<<1);		//	PB1 =>	pin15 => status_pin_fs_out5 =>	плата_расш =>	Выход_ OUT5 ==>		info_out5	==>	usRegInputBuf[3].7 ==>	LW102i7_infa_fs_onoff_out5
-     a7c:	84 b1       	in	r24, 0x04	; 4
-     a7e:	82 60       	ori	r24, 0x02	; 2
-     a80:	84 b9       	out	0x04, r24	; 4
+		DDRC |=(1<<2);		//	PC2 =>	pin25 => status_pin_vent_out3 =>плата_расш =>	Выход_ OUT3 ==>		info_out3	==>	usRegInputBuf[3].7 ==>	LW102i7_infa_vent_onoff_out3
+     a7c:	87 b1       	in	r24, 0x07	; 7
+     a7e:	84 60       	ori	r24, 0x04	; 4
+     a80:	87 b9       	out	0x07, r24	; 7
+		
 
 		// PC0 будет входом АЦП, убрать подтяжку
 		PORTC &= ~( 1<< 0); //	pin.23 mega328.PC0
@@ -1543,21 +1545,21 @@ int main(void)
      b64:	84 ff       	sbrs	r24, 4
      b66:	20 e0       	ldi	r18, 0x00	; 0
      b68:	20 93 47 02 	sts	0x0247, r18	; 0x800247 <cmd_us3_out2_mb>
-							cmd_vent_out3_mb=	((usReg_HOLDING_Buf[3] & (1 << 5))> 0) ? true : false;
+							cmd_out4_mb		=	((usReg_HOLDING_Buf[3] & (1 << 5))> 0) ? true : false;
      b6c:	21 e0       	ldi	r18, 0x01	; 1
      b6e:	85 ff       	sbrs	r24, 5
      b70:	20 e0       	ldi	r18, 0x00	; 0
-     b72:	20 93 45 02 	sts	0x0245, r18	; 0x800245 <cmd_vent_out3_mb>
-							cmd_out4_mb		=	((usReg_HOLDING_Buf[3] & (1 << 6))> 0) ? true : false;
+     b72:	20 93 46 02 	sts	0x0246, r18	; 0x800246 <cmd_out4_mb>
+							cmd_fs_out5_mb	=	((usReg_HOLDING_Buf[3] & (1 << 6))> 0) ? true : false;
      b76:	21 e0       	ldi	r18, 0x01	; 1
      b78:	86 ff       	sbrs	r24, 6
      b7a:	20 e0       	ldi	r18, 0x00	; 0
-     b7c:	20 93 46 02 	sts	0x0246, r18	; 0x800246 <cmd_out4_mb>
-							cmd_fs_out5_mb	=	((usReg_HOLDING_Buf[3] & (1 << 7))> 0) ? true : false;
+     b7c:	20 93 45 02 	sts	0x0245, r18	; 0x800245 <cmd_fs_out5_mb>
+							cmd_vent_out3_mb=	((usReg_HOLDING_Buf[3] & (1 << 7))> 0) ? true : false;
      b80:	21 e0       	ldi	r18, 0x01	; 1
      b82:	87 ff       	sbrs	r24, 7
      b84:	20 e0       	ldi	r18, 0x00	; 0
-     b86:	20 93 44 02 	sts	0x0244, r18	; 0x800244 <cmd_fs_out5_mb>
+     b86:	20 93 44 02 	sts	0x0244, r18	; 0x800244 <cmd_vent_out3_mb>
 							mode_termodat	=	((usReg_HOLDING_Buf[3] & (1 << 8))> 0) ? true : false; // usReg_HOLDING_Buf[3].8 ==>  ==0 термодатчик NTC_10kOm,    ==1 термодатчик Pt1000
      b8a:	21 e0       	ldi	r18, 0x01	; 1
      b8c:	90 ff       	sbrs	r25, 0
@@ -1967,7 +1969,7 @@ int main(void)
      ef6:	90 93 4d 02 	sts	0x024D, r25	; 0x80024d <count_600sec_vent+0x1>
      efa:	80 93 4c 02 	sts	0x024C, r24	; 0x80024c <count_600sec_vent>
 				cmd_vent_out3_real = cmd_vent_out3_mb | (count_600sec_vent >2);  // вентилятор работает или 600 сек после УЗ, или по команде от HMI
-     efe:	c0 91 45 02 	lds	r28, 0x0245	; 0x800245 <cmd_vent_out3_mb>
+     efe:	c0 91 44 02 	lds	r28, 0x0244	; 0x800244 <cmd_vent_out3_mb>
      f02:	81 e0       	ldi	r24, 0x01	; 1
      f04:	20 91 4c 02 	lds	r18, 0x024C	; 0x80024c <count_600sec_vent>
      f08:	30 91 4d 02 	lds	r19, 0x024D	; 0x80024d <count_600sec_vent+0x1>
@@ -1981,7 +1983,7 @@ int main(void)
      f1a:	e0 90 46 02 	lds	r14, 0x0246	; 0x800246 <cmd_out4_mb>
      f1e:	e0 92 35 02 	sts	0x0235, r14	; 0x800235 <cmd_out4_real>
 				cmd_fs_out5_real = cmd_fs_out5_mb & DatLevel;		// cmd_fs_out5_real - фильтр работает только при наличии воды
-     f22:	f0 90 44 02 	lds	r15, 0x0244	; 0x800244 <cmd_fs_out5_mb>
+     f22:	f0 90 45 02 	lds	r15, 0x0245	; 0x800245 <cmd_fs_out5_mb>
      f26:	d0 91 63 02 	lds	r29, 0x0263	; 0x800263 <DatLevel>
      f2a:	fd 22       	and	r15, r29
      f2c:	f0 92 34 02 	sts	0x0234, r15	; 0x800234 <__data_end>
@@ -2131,7 +2133,7 @@ int main(void)
     10b8:	80 61       	ori	r24, 0x10	; 16
     10ba:	90 93 96 02 	sts	0x0296, r25	; 0x800296 <temp_usRegInputBuf+0x1>
     10be:	80 93 95 02 	sts	0x0295, r24	; 0x800295 <temp_usRegInputBuf>
-				if (status_pin_out4	==true)		{ temp_usRegInputBuf |=(1<<5); } // PB2 =>	pin16	
+				if (status_pin_out4	==true)		{ temp_usRegInputBuf |=(1<<5); } // PB2 =>	pin16
     10c2:	80 91 b7 02 	lds	r24, 0x02B7	; 0x8002b7 <status_pin_out4>
     10c6:	88 23       	and	r24, r24
     10c8:	49 f0       	breq	.+18     	; 0x10dc <main+0x746>
@@ -2140,8 +2142,8 @@ int main(void)
     10d2:	80 62       	ori	r24, 0x20	; 32
     10d4:	90 93 96 02 	sts	0x0296, r25	; 0x800296 <temp_usRegInputBuf+0x1>
     10d8:	80 93 95 02 	sts	0x0295, r24	; 0x800295 <temp_usRegInputBuf>
-				if (status_pin_vent_out3==true)	{ temp_usRegInputBuf |=(1<<6); } // PC2 =>	pin25
-    10dc:	80 91 b8 02 	lds	r24, 0x02B8	; 0x8002b8 <status_pin_vent_out3>
+				if (status_pin_fs_out5	==true)	{ temp_usRegInputBuf |=(1<<6); } // PB1 =>	pin15		
+    10dc:	80 91 b6 02 	lds	r24, 0x02B6	; 0x8002b6 <status_pin_fs_out5>
     10e0:	88 23       	and	r24, r24
     10e2:	49 f0       	breq	.+18     	; 0x10f6 <main+0x760>
     10e4:	80 91 95 02 	lds	r24, 0x0295	; 0x800295 <temp_usRegInputBuf>
@@ -2149,8 +2151,8 @@ int main(void)
     10ec:	80 64       	ori	r24, 0x40	; 64
     10ee:	90 93 96 02 	sts	0x0296, r25	; 0x800296 <temp_usRegInputBuf+0x1>
     10f2:	80 93 95 02 	sts	0x0295, r24	; 0x800295 <temp_usRegInputBuf>
-				if (status_pin_fs_out5	==true)	{ temp_usRegInputBuf |=(1<<7); } // PB1 =>	pin15
-    10f6:	80 91 b6 02 	lds	r24, 0x02B6	; 0x8002b6 <status_pin_fs_out5>
+				if (status_pin_vent_out3==true)	{ temp_usRegInputBuf |=(1<<7); } // PC2 =>	pin25
+    10f6:	80 91 b8 02 	lds	r24, 0x02B8	; 0x8002b8 <status_pin_vent_out3>
     10fa:	88 23       	and	r24, r24
     10fc:	49 f0       	breq	.+18     	; 0x1110 <main+0x77a>
     10fe:	80 91 95 02 	lds	r24, 0x0295	; 0x800295 <temp_usRegInputBuf>
@@ -4632,33 +4634,33 @@ void read_pin_in_out(void)
 	// ===============	input_IN_main_plata;	// pin24 => PC1 => c учетом LW202.8_mode_DatLevel
 	if ((PINC & (1 << 1)) > 0)
     1d6c:	31 9b       	sbis	0x06, 1	; 6
-    1d6e:	0d c0       	rjmp	.+26     	; 0x1d8a <_Z15read_pin_in_outv+0x1a6>
+    1d6e:	0e c0       	rjmp	.+28     	; 0x1d8c <_Z15read_pin_in_outv+0x1a8>
 	{
 		count_PC1-- ;
     1d70:	80 91 a5 02 	lds	r24, 0x02A5	; 0x8002a5 <count_PC1>
     1d74:	81 50       	subi	r24, 0x01	; 1
     1d76:	80 93 a5 02 	sts	0x02A5, r24	; 0x8002a5 <count_PC1>
-		if (count_PC1 <-5) {count_PC1 =-5; input_IN_main_plata = false ; } // !!!!!!!!!1  датчик уровня ГЕРКОН-вверх ногами , поэтому
+		if (count_PC1 <-5) {count_PC1 =-5; input_IN_main_plata = true ; } 
     1d7a:	8b 3f       	cpi	r24, 0xFB	; 251
     1d7c:	9c f4       	brge	.+38     	; 0x1da4 <_Z15read_pin_in_outv+0x1c0>
     1d7e:	8b ef       	ldi	r24, 0xFB	; 251
     1d80:	80 93 a5 02 	sts	0x02A5, r24	; 0x8002a5 <count_PC1>
-    1d84:	10 92 b4 02 	sts	0x02B4, r1	; 0x8002b4 <input_IN_main_plata>
-    1d88:	0d c0       	rjmp	.+26     	; 0x1da4 <_Z15read_pin_in_outv+0x1c0>
+    1d84:	81 e0       	ldi	r24, 0x01	; 1
+    1d86:	80 93 b4 02 	sts	0x02B4, r24	; 0x8002b4 <input_IN_main_plata>
+    1d8a:	0c c0       	rjmp	.+24     	; 0x1da4 <_Z15read_pin_in_outv+0x1c0>
 	}
 	else
 	{
 		count_PC1++ ;
-    1d8a:	80 91 a5 02 	lds	r24, 0x02A5	; 0x8002a5 <count_PC1>
-    1d8e:	8f 5f       	subi	r24, 0xFF	; 255
-    1d90:	80 93 a5 02 	sts	0x02A5, r24	; 0x8002a5 <count_PC1>
-		if (count_PC1 > 5) {count_PC1 = 5; input_IN_main_plata = true ; }
-    1d94:	86 30       	cpi	r24, 0x06	; 6
-    1d96:	34 f0       	brlt	.+12     	; 0x1da4 <_Z15read_pin_in_outv+0x1c0>
-    1d98:	85 e0       	ldi	r24, 0x05	; 5
-    1d9a:	80 93 a5 02 	sts	0x02A5, r24	; 0x8002a5 <count_PC1>
-    1d9e:	81 e0       	ldi	r24, 0x01	; 1
-    1da0:	80 93 b4 02 	sts	0x02B4, r24	; 0x8002b4 <input_IN_main_plata>
+    1d8c:	80 91 a5 02 	lds	r24, 0x02A5	; 0x8002a5 <count_PC1>
+    1d90:	8f 5f       	subi	r24, 0xFF	; 255
+    1d92:	80 93 a5 02 	sts	0x02A5, r24	; 0x8002a5 <count_PC1>
+		if (count_PC1 > 5) {count_PC1 = 5; input_IN_main_plata = false ; }
+    1d96:	86 30       	cpi	r24, 0x06	; 6
+    1d98:	2c f0       	brlt	.+10     	; 0x1da4 <_Z15read_pin_in_outv+0x1c0>
+    1d9a:	85 e0       	ldi	r24, 0x05	; 5
+    1d9c:	80 93 a5 02 	sts	0x02A5, r24	; 0x8002a5 <count_PC1>
+    1da0:	10 92 b4 02 	sts	0x02B4, r1	; 0x8002b4 <input_IN_main_plata>
 	}
 
 	// ===============	input_button_US;		// pin18 => PB4 => нажата кнопка ==0, отпущена ==1 (подвес +5)

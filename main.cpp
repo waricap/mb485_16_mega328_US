@@ -19,28 +19,29 @@
 				 motochas_hh_US			==> usRegInputBuf[5]	==>LW104
 				 motochas_mm_TEN		==> usRegInputBuf[6]	==>LW105
 				 motochas_hh_TEN		==> usRegInputBuf[7]	==>LW106
-				 motochas_mm_FS		==> usRegInputBuf[8]	==>LW107
-				 motochas_hh_FS		==> usRegInputBuf[9]	==>LW108
+				 motochas_mm_FS			==> usRegInputBuf[8]	==>LW107
+				 motochas_hh_FS			==> usRegInputBuf[9]	==>LW108
 				 
-				 // ================== CMD ===================== //
-				 LW202.0_cmd_nagrev ==>	usReg_HOLDING_Buf[3].0 ==>	PC5 =>	pin28 => status_pin_ten	=>	LED-HEAT =>		Выход ТEN-triac	==>	info_ten	==>	usRegInputBuf[3].0 ==>	LW102i0_info_onoff_ten				 				 PC4 =>	pin27 => status_pin_nagrev    =>	LED-SONIC =>	Выход  S  реле US ==>	cmd_US ==>		usRegInputBuf[2].7 ==>	LW101i7_infa_onoff_US
-				 LW202.1_cmd_us	  ==>	usReg_HOLDING_Buf[3].1 ==>	PC4 =>	pin27 => status_pin_us	=>	LED-SONIC =>	Выход OK TIMER ==>	info_us		==>	usRegInputBuf[3].1 ==>	LW102i1_infa_us
-				 LW202.2_cmd_out1 ==>	usReg_HOLDING_Buf[3].2 ==>	PD5 =>	pin11 => status_pin_us2_out1 =>	плата_расш =>	Выход_ OUT1 ==>		info_out1	==>	usRegInputBuf[3].2 ==>	LW102i2_infa_onoff_out1
-				 LW202.3_cmd_out2 ==>	usReg_HOLDING_Buf[3].3 ==>	PD2 =>	pin4  => status_pin_us3_out2 =>	плата_расш =>	Выход_ OUT2 ==>		info_out2	==>	usRegInputBuf[3].3 ==>	LW102i3_infa_onoff_out2
-				 LW202.4_cmd_out3 ==>	usReg_HOLDING_Buf[3].4 ==>	PC2 =>	pin25 => status_pin_vent_out3 =>	плата_расш =>	Выход_ OUT3 ==>		info_out3	==>	usRegInputBuf[3].4 ==>	LW102i4_infa_onoff_out3
-				 LW202.5_cmd_out4 ==>	usReg_HOLDING_Buf[3].5 ==>	PB2 =>	pin16 => status_pin_out4 =>	плата_расш =>	Выход_ OUT4 ==>		info_out4	==>	usRegInputBuf[3].5 ==>	LW102i5_infa_onoff_out4
-				 LW202.6_cmd_out5 ==>	usReg_HOLDING_Buf[3].6 ==>	PB1 =>	pin15 => status_pin_fs_out5 =>	плата_расш =>	Выход_ OUT5 ==>		info_out5	==>	usRegInputBuf[3].6 ==>	LW102i6_infa_onoff_out5
-				 LW202.7_mode_termodat ==>	usReg_HOLDING_Buf[3].7 ==>  ==0 термодатчик NTC_10kOm,    ==1 термодатчик Pt1000
-				 LW202.8_mode_DatLevel ==>	usReg_HOLDING_Buf[3].8 ==>  ==0 геркон на +24в,    ==1 датчик уровня термический OK-NPN
-				 LW202.F_modbus   ==>	usReg_HOLDING_Buf[3].F ==>		=== modbus_on_off ===															==>	usRegInputBuf[3].F ==>	LW102iF_modbus_onoff
+				 // ================== CMD ===================== //cmd_vent_out3
+				 LW202.0_cmd_nagrev		==>	usReg_HOLDING_Buf[3].0 ==>	PC5 =>	pin28 => status_pin_ten	=>	LED-HEAT =>		Выход ТEN-triac		==>	info_ten	==>	usRegInputBuf[3].0 ==>	LW102i0_info_onoff_ten		
+				 LW202.1_cmd_nagrev2	==>	usReg_HOLDING_Buf[3].1 ==>
+				 LW202.2_cmd_us			==>	usReg_HOLDING_Buf[3].2 ==>	PC4 =>	pin27 => status_pin_us		=>	LED-SONIC =>	Выход OK TIMER ==>	info_us		==>	usRegInputBuf[3].2 ==>	LW102i2_infa_us
+				 LW202.3_cmd_us2_out1	==>	usReg_HOLDING_Buf[3].3 ==>	PD5 =>	pin11 => status_pin_us2_out1 =>	плата_расш =>	Выход_ OUT1 ==>		info_out1	==>	usRegInputBuf[3].3 ==>	LW102i3_infa_onoff_out1
+				 LW202.4_cmd_us3_out2	==>	usReg_HOLDING_Buf[3].4 ==>	PD2 =>	pin4  => status_pin_us3_out2 =>	плата_расш =>	Выход_ OUT2 ==>		info_out2	==>	usRegInputBuf[3].4 ==>	LW102i4_infa_onoff_out2
+				 LW202.5_cmd_out4		==>	usReg_HOLDING_Buf[3].5 ==>	PB2 =>	pin16 => status_pin_out4	=>	плата_расш =>	Выход_ OUT4 ==>		info_out4	==>	usRegInputBuf[3].5 ==>	LW102i5_infa_onoff_out4
+				 LW202.6_cmd_fs_out5	==>	usReg_HOLDING_Buf[3].6 ==>	PB1 =>	pin15 => status_pin_fs_out5 =>	плата_расш =>	Выход_ OUT5 ==>		info_out5	==>	usRegInputBuf[3].6 ==>	LW102i6_infa_onoff_out5
+				 LW202.7_cmd_vent_out3  ==>	usReg_HOLDING_Buf[3].7 ==>	PC2 =>	pin25 => status_pin_vent_out3=>	плата_расш =>	Выход_ OUT3 ==>		info_out3	==>	usRegInputBuf[3].7 ==>	LW102i7_infa_onoff_out3
+				 LW202.8_mode_termodat	==>	usReg_HOLDING_Buf[3].8 ==>  ==0 термодатчик NTC_10kOm,    ==1 термодатчик Pt1000
+				 LW202.9_mode_DatLevel	==>	usReg_HOLDING_Buf[3].9 ==>  ==0 геркон на +24в,    ==1 датчик уровня термический OK-NPN
+				 LW202.F_modbus			==>	usReg_HOLDING_Buf[3].F ==>		=== modbus_on_off ===																==>	usRegInputBuf[3].F ==>	LW102iF_modbus_onoff
 				 
 				 // ================ Input ===================== //
 				 input_IN_main_plata ==>	pin24 => PC1 => зажигается входной оптрон ==0, погашен ==1	==> нет воды геркон опущен-закорочен-оптрон-горит, сигнал идет 1к1 ==>	input_DU ==>  usRegInputBuf[2].0 ==>	LW101i0_du		==1 есть вода,  ==0 нет
-				 input_button_US	 ==>	pin18 => PB4 => нажата кнопка ==0, отпущена ==1 (подвес +5)	==> будет работать функция перекидоса по отпусканию кнопки		   ==>	usRegInputBuf[2].1 ==>	LW101i1_btn_us		перекидос
-				 input_button_TEN	 ==>	pin19 => PB5 => нажата кнопка ==0, отпущена ==1	(подвес +5)	==> будет работать функция перекидоса по отпусканию кнопки		   ==>	usRegInputBuf[2].2 ==>	LW101i2_btn_ten		перекидос
-				 input_IN1_adv_plata ==>	pin6  => PD4 => зажигается входной оптрон ==0, погашен ==1	==> подано +24в, оптрон зажжется, сигнал дискрета будет инвертиров.==>	usRegInputBuf[2].3 ==>	LW101i3_di1_adv		==1 подано +24в,   ==0 нет
-				 input_IN2_adv_plata ==>	pin5  => PD3 => зажигается входной оптрон ==0, погашен ==1	==> подано +24в, оптрон зажжется, сигнал дискрета будет инвертиров.==>	usRegInputBuf[2].4 ==>	LW101i4_di2_adv		==1 подано +24в,   ==0 нет
-				 input_IN3_adv_plata ==>	pin14 => PB0 => зажигается входной оптрон ==0, погашен ==1	==> подано +24в, оптрон зажжется, сигнал дискрета будет инвертиров.==>	usRegInputBuf[2].5 ==>	LW101i5_di3_adv		==1 подано +24в,   ==0 нет
+				 input_IN1_adv_plata ==>	pin6  => PD4 => зажигается входной оптрон ==0, погашен ==1	==> подано +24в, оптрон зажжется, сигнал дискрета будет инвертиров.==>	usRegInputBuf[2].1 ==>	LW101i1_di1_adv		==1 подано +24в,   ==0 нет
+				 input_IN2_adv_plata ==>	pin5  => PD3 => зажигается входной оптрон ==0, погашен ==1	==> подано +24в, оптрон зажжется, сигнал дискрета будет инвертиров.==>	usRegInputBuf[2].2 ==>	LW101i2_di2_adv		==1 подано +24в,   ==0 нет
+				 input_IN3_adv_plata ==>	pin14 => PB0 => зажигается входной оптрон ==0, погашен ==1	==> подано +24в, оптрон зажжется, сигнал дискрета будет инвертиров.==>	usRegInputBuf[2].3 ==>	LW101i3_di3_adv		==1 подано +24в,   ==0 нет
+				 input_button_US	 ==>	pin18 => PB4 => нажата кнопка ==0, отпущена ==1 (подвес +5)	==> будет работать функция перекидоса по отпусканию кнопки		   ==>	usRegInputBuf[2].4 ==>	LW101i4_btn_us		перекидос
+				 input_button_TEN	 ==>	pin19 => PB5 => нажата кнопка ==0, отпущена ==1	(подвес +5)	==> будет работать функция перекидоса по отпусканию кнопки		   ==>	usRegInputBuf[2].5 ==>	LW101i5_btn_ten		перекидос
 				 input_IN4_adv_plata ==>	pin13 => PD7 => зажигается входной оптрон ==0, погашен ==1	==> подано +24в, оптрон зажжется, сигнал дискрета будет инвертиров.==>	usRegInputBuf[2].6 ==>	LW101i6_di4_adv		==1 подано +24в,   ==0 нет
 				 input_IN5_adv_plata ==>	pin12 => PD6 => зажигается входной оптрон ==0, погашен ==1	==> подано +24в, оптрон зажжется, сигнал дискрета будет инвертиров.==>	usRegInputBuf[2].7 ==>	LW101i7_di5_adv		==1 подано +24в,   ==0 нет
 				 
@@ -86,8 +87,8 @@ bool cmd_us_mb;			// usReg_HOLDING_Buf[3].2
 bool cmd_us2_out1_mb;	// usReg_HOLDING_Buf[3].3
 bool cmd_us3_out2_mb;	// usReg_HOLDING_Buf[3].4
 bool cmd_out4_mb;		// usReg_HOLDING_Buf[3].5
-bool cmd_vent_out3_mb;	// usReg_HOLDING_Buf[3].6
-bool cmd_fs_out5_mb;	// usReg_HOLDING_Buf[3].7
+bool cmd_fs_out5_mb;	// usReg_HOLDING_Buf[3].6
+bool cmd_vent_out3_mb;	// usReg_HOLDING_Buf[3].7
 bool mode_termodat;		// usReg_HOLDING_Buf[3].8 ==>  ==0 термодатчик NTC_10kOm,    ==1 термодатчик Pt1000
 bool mode_DatLevel;		// usReg_HOLDING_Buf[3].9 ==>  ==0 геркон вверх на +24в,    ==1 датчик уровня термический OK-NPN(или болт - тоже самое)
 bool cmd_0xA_mb;		// usReg_HOLDING_Buf[3].A
@@ -163,13 +164,15 @@ int main(void)
 		// нo некоторые будут выходами, назначаем:
 		DDRC |=(1<<3);		//	pin.26 mega328.PC3   выход для переключени¤  MAX485
 		PORTC &= ~( 1<< 3); //	pin.26 mega328.PC3     =0 -Read_max485
-		DDRC |=(1<<5);		//	PC5 =>	pin28 => status_pin_ten	=>		LED-HEAT =>		Выход ТEN-triac	==>	info_ten	==>	usRegInputBuf[3].0 ==>	LW102i0_info_onoff_ten				 				 PC4 =>	pin27 => status_pin_nagrev    =>	LED-SONIC =>	Выход  S  реле US ==>	cmd_US ==>		usRegInputBuf[2].7 ==>	LW101i7_infa_onoff_US
+		DDRC |=(1<<5);		//	PC5 =>	pin28 => status_pin_ten	=>		LED-HEAT =>		Выход ТEN-triac	==>	info_ten	==>	usRegInputBuf[3].0 ==>	LW102i0_info_onoff_ten	
+							//					 status_pin_ten2=>		LED-HEAT =>										==>	usRegInputBuf[3].1 ==>	LW102i1_info_onoff_ten2
 		DDRC |=(1<<4);		//	PC4 =>	pin27 => status_pin_us	=>		LED-SONIC =>	Выход OK TIMER ==>	info_us		==>	usRegInputBuf[3].2 ==>	LW102i2_infa_us
 		DDRD |=(1<<5);		//	PD5 =>	pin11 => status_pin_us2_out1 =>	плата_расш =>	Выход_ OUT1 ==>		info_out1	==>	usRegInputBuf[3].3 ==>	LW102i3_infa_us2_onoff_out1
 		DDRD |=(1<<2);		//	PD2 =>	pin4  => status_pin_us3_out2 =>	плата_расш =>	Выход_ OUT2 ==>		info_out2	==>	usRegInputBuf[3].4 ==>	LW102i4_infa_us3_onoff_out2
-		DDRC |=(1<<2);		//	PC2 =>	pin25 => status_pin_vent_out3 =>плата_расш =>	Выход_ OUT3 ==>		info_out3	==>	usRegInputBuf[3].5 ==>	LW102i5_infa_vent_onoff_out3
-		DDRB |=(1<<2);		//	PB2 =>	pin16 => status_pin_out4 =>		плата_расш =>	Выход_ OUT4 ==>		info_out4	==>	usRegInputBuf[3].6 ==>	LW102i6_infa_onoff_out4
-		DDRB |=(1<<1);		//	PB1 =>	pin15 => status_pin_fs_out5 =>	плата_расш =>	Выход_ OUT5 ==>		info_out5	==>	usRegInputBuf[3].7 ==>	LW102i7_infa_fs_onoff_out5
+		DDRB |=(1<<2);		//	PB2 =>	pin16 => status_pin_out4 =>		плата_расш =>	Выход_ OUT4 ==>		info_out4	==>	usRegInputBuf[3].5 ==>	LW102i5_infa_onoff_out4
+		DDRB |=(1<<1);		//	PB1 =>	pin15 => status_pin_fs_out5 =>	плата_расш =>	Выход_ OUT5 ==>		info_out5	==>	usRegInputBuf[3].6 ==>	LW102i6_infa_fs_onoff_out5
+		DDRC |=(1<<2);		//	PC2 =>	pin25 => status_pin_vent_out3 =>плата_расш =>	Выход_ OUT3 ==>		info_out3	==>	usRegInputBuf[3].7 ==>	LW102i7_infa_vent_onoff_out3
+		
 
 		// PC0 будет входом АЦП, убрать подтяжку
 		PORTC &= ~( 1<< 0); //	pin.23 mega328.PC0
@@ -217,9 +220,9 @@ int main(void)
 							cmd_us_mb		=	((usReg_HOLDING_Buf[3] & (1 << 2))> 0) ? true : false; 
 							cmd_us2_out1_mb	=	((usReg_HOLDING_Buf[3] & (1 << 3))> 0) ? true : false;
 							cmd_us3_out2_mb	=	((usReg_HOLDING_Buf[3] & (1 << 4))> 0) ? true : false;
-							cmd_vent_out3_mb=	((usReg_HOLDING_Buf[3] & (1 << 5))> 0) ? true : false;
-							cmd_out4_mb		=	((usReg_HOLDING_Buf[3] & (1 << 6))> 0) ? true : false;
-							cmd_fs_out5_mb	=	((usReg_HOLDING_Buf[3] & (1 << 7))> 0) ? true : false;
+							cmd_out4_mb		=	((usReg_HOLDING_Buf[3] & (1 << 5))> 0) ? true : false;
+							cmd_fs_out5_mb	=	((usReg_HOLDING_Buf[3] & (1 << 6))> 0) ? true : false;
+							cmd_vent_out3_mb=	((usReg_HOLDING_Buf[3] & (1 << 7))> 0) ? true : false;
 							mode_termodat	=	((usReg_HOLDING_Buf[3] & (1 << 8))> 0) ? true : false; // usReg_HOLDING_Buf[3].8 ==>  ==0 термодатчик NTC_10kOm,    ==1 термодатчик Pt1000
 							mode_DatLevel	=	((usReg_HOLDING_Buf[3] & (1 << 9))> 0) ? true : false; // usReg_HOLDING_Buf[3].9 ==>  ==0 геркон на +24в,    ==1 датчик уровня термический OK-NPN
 							cmd_0xA_mb		=	((usReg_HOLDING_Buf[3] & (1 <<0xA))>0) ? true : false;	// usReg_HOLDING_Buf[3].A
@@ -331,9 +334,9 @@ int main(void)
 				if (status_pin_us	==true)		{ temp_usRegInputBuf |=(1<<2); } // PC4 =>	pin27
 				if (status_pin_us2_out1	==true)	{ temp_usRegInputBuf |=(1<<3); } // PD5 =>	pin11
 				if (status_pin_us3_out2	==true)	{ temp_usRegInputBuf |=(1<<4); } // PD2 =>	pin4
-				if (status_pin_out4	==true)		{ temp_usRegInputBuf |=(1<<5); } // PB2 =>	pin16	
-				if (status_pin_vent_out3==true)	{ temp_usRegInputBuf |=(1<<6); } // PC2 =>	pin25
-				if (status_pin_fs_out5	==true)	{ temp_usRegInputBuf |=(1<<7); } // PB1 =>	pin15
+				if (status_pin_out4	==true)		{ temp_usRegInputBuf |=(1<<5); } // PB2 =>	pin16
+				if (status_pin_fs_out5	==true)	{ temp_usRegInputBuf |=(1<<6); } // PB1 =>	pin15		
+				if (status_pin_vent_out3==true)	{ temp_usRegInputBuf |=(1<<7); } // PC2 =>	pin25
 				if (infa_err_td	==true)			{ temp_usRegInputBuf |=(1<<14);} // ==1 есть авария термодатчика,   ==0 все норм
 				if (status_indikator_MB ==false){ temp_usRegInputBuf |=(1<<15);} // получаем в регистр LW202.f->usReg_HOLDING_Buf[3].f  в инверсии уходит на   usRegInputBuf[3].f->LW102.f
 				usRegInputBuf[3] = temp_usRegInputBuf; // LW102.x

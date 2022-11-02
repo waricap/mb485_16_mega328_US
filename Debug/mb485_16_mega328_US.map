@@ -876,12 +876,12 @@ END GROUP
  .bss.mode_termodat
                 0x00800243        0x1 main.o
                 0x00800243                mode_termodat
- .bss.cmd_fs_out5_mb
-                0x00800244        0x1 main.o
-                0x00800244                cmd_fs_out5_mb
  .bss.cmd_vent_out3_mb
+                0x00800244        0x1 main.o
+                0x00800244                cmd_vent_out3_mb
+ .bss.cmd_fs_out5_mb
                 0x00800245        0x1 main.o
-                0x00800245                cmd_vent_out3_mb
+                0x00800245                cmd_fs_out5_mb
  .bss.cmd_out4_mb
                 0x00800246        0x1 main.o
                 0x00800246                cmd_out4_mb
