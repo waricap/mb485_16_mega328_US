@@ -8,6 +8,7 @@
 #include "fun_ADC.h"
 
 extern bool infa_err_td ;
+extern uint16_t count_infa_err_td;
 
 void ADC_init_Pt1000(void)
 {
@@ -78,13 +79,23 @@ uint16_t  zamer_ADC_tmprt_Pt1000(float Up_mv, float Aref_mv, float R_om)
 	// сначала надо проверить пределы ADCdata  temperatura_tekuzh
 	infa_err_td =false;
 	if(((Zamer_ADC < 685 ) | (Zamer_ADC > 1000) ) )
-		{ 
-			temperatura_tekuzh_x10_plus10 = 1900; 
-			infa_err_td =true;
-		}
+	{
+		count_infa_err_td ++;
+		temperatura_tekuzh_x10_plus10 = 1900;
+	}
 	else
-		{ temperatura_tekuzh_x10_plus10 = 100 + (uint16_t) (10*  ( (Aref_mv*R_om*Zamer_f/(1024*Up_mv - Aref_mv*Zamer_f)) - Pt_om_0grad ) / naklon );  }
-			
+	{
+		temperatura_tekuzh_x10_plus10 = 100 + (uint16_t) (10*  ( (Aref_mv*R_om*Zamer_f/(1024*Up_mv - Aref_mv*Zamer_f)) - Pt_om_0grad ) / naklon );
+		count_infa_err_td=0;
+	}
+	
+	if (count_infa_err_td >20)
+	{
+		count_infa_err_td=20;
+		infa_err_td =true;
+	}
+	
+	
 	return temperatura_tekuzh_x10_plus10;
 }
 
@@ -97,14 +108,17 @@ uint16_t  zamer_ADC_tmprt_NTC(float R_om)
 	float Zamer_f = (float)Zamer_ADC;
 	
 	// сначала надо проверить пределы ADCdata  temperatura_tekuzh
+	infa_err_td =false;
 	if(((Zamer_ADC < 130 ) | (Zamer_ADC > 990) ) )
 		{ 
 			temperatura_tekuzh_x10_plus10 = 1900; 
-			infa_err_td =true;
+			//infa_err_td =true;
+			count_infa_err_td ++;
 		}
 	else
 		{
-			infa_err_td =false;
+			// infa_err_td =false;
+			count_infa_err_td=0;
 			R_izm_om = (uint16_t) ( R_om*Zamer_f / (1024 - Zamer_f));
 				// Двоичный поиск по таблице  table_NTC_Om[141]
 				for(int it=1; it<141; it++) //массив идет с 0, но для точного деления нужно значение нижнего индекса [it-1]
@@ -118,5 +132,12 @@ uint16_t  zamer_ADC_tmprt_NTC(float R_om)
 						}
 				}
 		}
+		
+		if (count_infa_err_td >20)
+		{
+			count_infa_err_td=20;
+			infa_err_td =true;
+		}
+		
 	return temperatura_tekuzh_x10_plus10;
 }

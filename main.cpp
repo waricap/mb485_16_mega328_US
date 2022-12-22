@@ -63,7 +63,8 @@ uint8_t			temp_portD;
 uint16_t		temp_usRegInputBuf;
 float		tmprt_curr_float;
 float		tmprt_izm_float;
-float		array_tmprt_izm[10];
+uint16_t	temp_tmprt_uint16;
+float		array_tmprt_izm[100];
 uint8_t		index_tmprt=0;
 bool		DatLevel; //  ==1 есть уровень,   ==0 нет воды
 
@@ -157,7 +158,8 @@ int main(void)
 		DDRB  = 0; // везде назначаем входа,
 		PORTB = 0xFF; // подт§жка всех входов к плюсу
 		DDRC  = 0; // везде назначаем входа,
-		PORTC = 0xFF; // подт§жка всех входов к плюсу
+		//                                                PORTC = 0xFF; // подт§жка всех входов к плюсу
+		PORTC = 0;
 		DDRD  = 0; // везде назначаем входа,
 		PORTD = 0xFF ; // подт§жка всех входов к плюсу
 
@@ -243,17 +245,25 @@ int main(void)
 							else
 							{// ===== если нет изменений термодатчика, делаем замер ============ 
 								if (mode_termodat == true)
-									{ tmprt_izm_float = ((float) zamer_ADC_tmprt_Pt1000 ((float) Upower_mv_RAM, (float) Uaref_mv_RAM, (float) Rtd_om_RAM)) /10.f -10.f; }
+									{ 
+										temp_tmprt_uint16 = zamer_ADC_tmprt_Pt1000 ((float) Upower_mv_RAM, (float) Uaref_mv_RAM, (float) Rtd_om_RAM);
+										if (temp_tmprt_uint16 < 1900)
+											{	tmprt_izm_float = ((float) temp_tmprt_uint16 ) /10.f -10.f; }	
+									}
 								else
-									{ tmprt_izm_float = ((float) zamer_ADC_tmprt_NTC((float) Rtd_om_RAM)) /10.f -10.f; }
+									{ 
+										temp_tmprt_uint16 = zamer_ADC_tmprt_NTC((float) Rtd_om_RAM);
+										if (temp_tmprt_uint16 < 1900)
+										{ tmprt_izm_float = ((float) temp_tmprt_uint16) /10.f -10.f; }
+									}
 								//  тут надо сделать усреднение дл€ 10 последних значени€м 					
 								array_tmprt_izm[index_tmprt] = tmprt_izm_float;
 								index_tmprt ++;
-								if (index_tmprt >= 10) { index_tmprt =0; }
+								if (index_tmprt >= 100) { index_tmprt =0; }
 								tmprt_curr_float =0;
-								for (int i=0; i<10; i++)
+								for (int i=0; i<100; i++)
 									{ tmprt_curr_float = tmprt_curr_float +array_tmprt_izm[i]; }
-								tmprt_curr_float = tmprt_curr_float /10;
+								tmprt_curr_float = tmprt_curr_float /100;
 							}
 							old_mode_termodat = mode_termodat;
 						} //   if ( MB_ENOERR == eMBPoll() )
@@ -291,8 +301,18 @@ int main(void)
 				// надо отработать допуслови€  и  передать значени€ команд на пинџ 
 				// надо отработать допуслови€  и  передать значени€ команд на пинџ 
 				// надо отработать допуслови€  и  передать значени€ команд на пинџ 
-				if ((tmprt_curr_float < ((float)setup_termo_gradus)) & (DatLevel ==1))
-					{ cmd_ten_real = cmd_nagrev_mb | cmd_nagrev2_mb;	}	// cmd_nagrev_mb ==> с учетом температуры и датчика уровн€
+				if ((DatLevel ==1) & ((cmd_nagrev_mb==1) | (cmd_nagrev2_mb==1)))
+					{
+						if (tmprt_curr_float < ((float)setup_termo_gradus) -2) 
+							{ 
+								cmd_ten_real = 1;	// cmd_nagrev_mb ==> с учетом температуры и датчика уровн€
+							}
+											
+						if ( tmprt_curr_float > ( (float)setup_termo_gradus +2) )
+							{
+								cmd_ten_real = 0;	// cmd_nagrev_mb ==> с учетом температуры и датчика уровн€
+							}	
+					}
 				else
 					{ cmd_ten_real = 0; }
 

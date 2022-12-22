@@ -91,6 +91,7 @@ bool status_pin_vent_out3;	// PC2 =>	pin25
 bool status_pin_out4;		// PB2 =>	pin16
 bool status_pin_fs_out5;	// PB1 =>	pin15
 bool infa_err_td;			// ==1 есть авария термодатчика,   ==0 все норм
+uint16_t count_infa_err_td=0;
 
 
 bool input_IN_main_plata;	// pin24 => PC1 => c учетом LW202.8_mode_DatLevel == usReg_HOLDING_Buf[3].8	типа датч уровня будет формироваться ==>  input_DU ==>  ==1 есть вода,  ==0 нет
